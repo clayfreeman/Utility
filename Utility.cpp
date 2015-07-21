@@ -13,7 +13,7 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include "../include/Utility.hpp"
+#include "Utility.hpp"
 
 /**
  * @brief Explode
