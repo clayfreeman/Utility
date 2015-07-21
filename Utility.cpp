@@ -77,17 +77,14 @@ std::string& Utility::ltrim(std::string& s) {
 }
 
 /**
- * @brief <brief>
+ * @brief Repeat
  *
- * <description>
+ * Repeats a given std::string n times
  *
- * @remarks
- *   <remarks>
+ * @param s The std::string to repeat
+ * @param n Number of times to repeat
  *
- * @param parameter1 description of parameter1
- * @param[out] parameter2 parameter2 is an output parameter.
- *
- * @return <return>
+ * @return The resulting std::string
  */
 std::string Utility::repeat(const std::string& s, int n) {
   std::string result;
