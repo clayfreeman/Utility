@@ -25,7 +25,7 @@ class Utility {
     static std::string  implode(const std::vector<std::string>& v,
       const std::string& d);
     static std::string& ltrim(std::string& s);
-    static struct sockaddr_stroage parse_addr(const std::string& addr);
+    static struct sockaddr_storage parse_addr(const std::string& addr);
     static std::string  repeat(const std::string& s, int n);
     static std::string& rtrim(std::string& s);
     static std::string  strtolower(std::string s);
