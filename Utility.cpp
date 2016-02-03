@@ -9,8 +9,14 @@
  */
 
 #include <algorithm>
+#include <arpa/inet.h>
 #include <functional>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <stdexcept>
 #include <string>
+#include <sys/socket.h>
+#include <sys/types.h>
 #include <utility>
 #include <vector>
 #include "Utility.hpp"
@@ -74,6 +80,43 @@ std::string& Utility::ltrim(std::string& s) {
   s.erase(s.begin(), std::find_if(s.begin(), s.end(),
     std::ptr_fun<int, int>(std::isgraph)));
   return s;
+}
+
+/**
+ * @brief Parse Address
+ *
+ * Dynamically parse a std::string into a sockaddr_storage structure capable of
+ * being used in socket operations
+ *
+ * @remarks The `struct sockaddr_storage` can be reinterpret cast into any of
+ * the following applicable structures (after checking the ss_family attribute):
+ *   - `struct sockaddr`
+ *   - `struct sockaddr_in`
+ *   - `struct sockaddr_in6`
+ *
+ * @throws `std::runtime_exception` on failure or when an unexpected address
+ * family is encountered
+ *
+ * @return `struct sockaddr_storage` containing the relevant information
+ */
+struct sockaddr_storage Utility::parse_addr(const std::string& addr) {
+  // Declare storage for the results
+  struct sockaddr_storage address = {};
+  struct addrinfo hints = {}, *res = nullptr;
+  hints.ai_family = AF_UNSPEC;
+  hints.ai_flags  = AI_NUMERICHOST;
+
+  // Upon failure to parse or unexpected address family, throw an exception
+  if (getaddrinfo(addr.c_str(), nullptr, &hints, &res) != 0 || res == nullptr ||
+      (res->ai_family != AF_INET && res->ai_family != AF_INET6))
+    throw std::runtime_error{"Could not parse the provided address."};
+
+  // Copy the first address into the
+  memcpy(&address, res->ai_addr, res->ai_addrlen);
+  // Free the required storage for getaddrinfo(...)
+  freeaddrinfo(res);
+
+  return address;
 }
 
 /**
