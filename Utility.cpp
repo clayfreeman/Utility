@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include <arpa/inet.h>
+#include <cstring>
 #include <functional>
 #include <netdb.h>
 #include <netinet/in.h>
