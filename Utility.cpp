@@ -155,7 +155,7 @@ std::string Utility::replace(const std::string& s, const std::string& v,
   std::string result{n};
   size_t k = 0;
   // Loop over the original string until `s` cannot be found
-  while ((l = result.find(s, k)) != std::string::npos && k = l + v.length()) {
+  while ((l = result.find(s, k)) != std::string::npos && (k = l + v.length())) {
     // Replace the original substring with the new substring
     result.replace(l, s.length(), v);
   }
