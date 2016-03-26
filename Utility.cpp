@@ -143,22 +143,26 @@ std::string Utility::repeat(const std::string& s, int n) {
  * Replaces all occurrences of a given substring in a string with another
  * given substring
  *
- * @param s The substring that will be replaced
- * @param v The new value replacing `s`
- * @param n The original std::string
+ * @param search  The substring that will be replaced
+ * @param replace The new value replacing `s`
+ * @param subject The original std::string
  *
  * @return The resulting std::string
  */
-std::string Utility::replace(const std::string& s, const std::string& v,
-    const std::string& n) {
-  std::string::size_type l = std::string::npos;
-  std::string result{n};
-  size_t k = 0;
-  // Loop over the original string until `s` cannot be found
-  while ((l = result.find(s, k)) != std::string::npos && (k = l + v.length())) {
-    // Replace the original substring with the new substring
-    result.replace(l, s.length(), v);
+std::string Utility::replace(const std::string& search,
+    const std::string& replace, const std::string& subject) {
+  // Create storage for the result string
+  std::string result{subject};
+  if (search.length() > 0) {
+    // Loop until there are no more occurrences of the search string
+    for (auto offset = result.find(search), size_t search_pos = 0;
+        offset != std::string::npos; search_pos = offset + replace.length(),
+        offset = result.find(search, search_pos)) {
+      // Perform the replacement
+      result.replace(offset, search.length(), replace);
+    }
   }
+  // Return the resulting string
   return result;
 }
 
