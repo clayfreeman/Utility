@@ -155,7 +155,7 @@ std::string Utility::replace(const std::string& search,
   std::string result{subject};
   if (search.length() > 0) {
     // Loop until there are no more occurrences of the search string
-    for (auto offset = result.find(search), size_t search_pos = 0;
+    for (size_t search_pos = 0, auto offset = result.find(search);
         offset != std::string::npos; search_pos = offset + replace.length(),
         offset = result.find(search, search_pos)) {
       // Perform the replacement
