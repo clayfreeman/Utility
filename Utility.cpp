@@ -138,6 +138,31 @@ std::string Utility::repeat(const std::string& s, int n) {
 }
 
 /**
+ * @brief Replace
+ *
+ * Replaces all occurrences of a given substring in a string with another
+ * given substring
+ *
+ * @param s The substring that will be replaced
+ * @param v The new value replacing `s`
+ * @param n The original std::string
+ *
+ * @return The resulting std::string
+ */
+std::string Utility::replace(const std::string& s, const std::string& v,
+    const std::string& n) {
+  std::string::size_type l = std::string::npos;
+  std::string  result{n};
+  const size_t k = s.length();
+  // Loop over the original string until `s` cannot be found
+  while ((l = result.find(s)) != std::string::npos) {
+    // Replace the original substring with the new substring
+    result.replace(l, k, v);
+  }
+  return result;
+}
+
+/**
  * @brief Right Trim
  *
  * Trims whitespace from the right end of the provided std::string
