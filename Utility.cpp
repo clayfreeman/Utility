@@ -152,12 +152,12 @@ std::string Utility::repeat(const std::string& s, int n) {
 std::string Utility::replace(const std::string& s, const std::string& v,
     const std::string& n) {
   std::string::size_type l = std::string::npos;
-  std::string  result{n};
-  const size_t k = s.length();
+  std::string result{n};
+  size_t k = 0;
   // Loop over the original string until `s` cannot be found
-  while ((l = result.find(s)) != std::string::npos) {
+  while ((l = result.find(s, k)) != std::string::npos && k = l + v.length()) {
     // Replace the original substring with the new substring
-    result.replace(l, k, v);
+    result.replace(l, s.length(), v);
   }
   return result;
 }
