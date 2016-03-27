@@ -153,15 +153,15 @@ std::string Utility::replace(const std::string& search,
     const std::string& replace, const std::string& subject) {
   // Create storage for the result string
   std::string result{subject};
-  if (search.length() > 0) {
-    // Loop until there are no more occurrences of the search string
-    for (size_t search_pos = 0, auto offset = result.find(search);
-        offset != std::string::npos; search_pos = offset + replace.length(),
-        offset = result.find(search, search_pos)) {
-      // Perform the replacement
-      result.replace(offset, search.length(), replace);
-    }
-  }
+  // Setup storage for string replacement
+    auto     offset = std::string::npos;
+  size_t search_pos = 0;
+  // Loop until there are no more occurrences of the search string
+  while ((offset = result.find(search, search_pos)) != std::string::npos)
+    // Perform the replacement operation
+    result.replace(offset, search.length(), replace),
+    // Update the search start position
+    search_pos = offset + replace.length();
   // Return the resulting string
   return result;
 }
