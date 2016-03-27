@@ -150,14 +150,16 @@ std::string Utility::repeat(const std::string& s, int n) {
  * @return The resulting std::string
  */
 std::string Utility::replace(const std::string& search,
-    const std::string& replace, const std::string& subject) {
+    const std::string& replace, const std::string& subject, const int limit) {
   // Create storage for the result string
   std::string result{subject};
-  // Setup storage for string replacement
+  // Setup storage for string replacement operation
     auto     offset = std::string::npos;
   size_t search_pos = 0;
+     int          i = 0;
   // Loop until there are no more occurrences of the search string
-  while ((offset = result.find(search, search_pos)) != std::string::npos)
+  while (search.length() > 0 && (limit == 0 || i++ < limit) &&
+      (offset = result.find(search, search_pos)) != std::string::npos)
     // Perform the replacement operation
     result.replace(offset, search.length(), replace),
     // Update the search start position

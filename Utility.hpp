@@ -28,7 +28,8 @@ class Utility {
     static struct sockaddr_storage parse_addr(const std::string& addr);
     static std::string  repeat(const std::string& s, int n);
     static std::string  replace(const std::string& search,
-        const std::string& replace, const std::string& subject);
+        const std::string& replace, const std::string& subject,
+        const int limit = 0);
     static std::string& rtrim(std::string& s);
     static std::string  strtolower(std::string s);
     static std::string& trim(std::string& s);
